@@ -8,9 +8,8 @@
 </head>
 
 <body>
-    <spring:form method="post" modelAttribute="queryJSP" action="check-query">
-        You SQL query: <spring:input path="query"/></br></br>
-        <spring:button>Check SQL</spring:button>
+    <spring:form method="post" action="task1">
+        <input class="submit_button" type="submit" value="Task1"/></br></br>
     </spring:form>
 </body>
 

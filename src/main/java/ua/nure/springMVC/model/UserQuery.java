@@ -12,7 +12,6 @@ public class UserQuery {
     }
 
     public String getQuery() {
-
         return query;
     }
 }
