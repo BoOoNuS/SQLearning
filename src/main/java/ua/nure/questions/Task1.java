@@ -29,9 +29,6 @@ public class Task1 implements ITask {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(userAnswer.size() == 1 && trueAnswers.equals(userAnswer.get(0))){
-            return true;
-        }
-        return false;
+        return userAnswer.size() == 1 && trueAnswers.equals(userAnswer.get(0));
     }
 }

@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import ua.nure.JDBCdriver.postgreSQL.PostgreConnector;
+import ua.nure.questions.ITask;
 import ua.nure.questions.Task1;
 import ua.nure.springMVC.model.UserQuery;
 
 @Controller
 public class MainController {
+
+    private volatile ITask someTask;
 
     /* First method when we start the server */
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -22,18 +25,19 @@ public class MainController {
 
     @RequestMapping(value = "/task1")
     public ModelAndView task1(){
+        someTask = new Task1();
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
         mav.setViewName("task1");
         return mav;
     }
 
-    @RequestMapping(value = "/task1_answer")
-    public ModelAndView checkTask1(@ModelAttribute("queryJSP") UserQuery query){
+    @RequestMapping(value = "/check_and_answer")
+    public ModelAndView checkAndAnswer(@ModelAttribute("queryJSP") UserQuery query){
         PostgreConnector connector = PostgreConnector.connect("localhost", 5432, "business_firm", "postgres", "619916");
         ModelAndView mav = new ModelAndView();
-        mav.addObject("responseJSP", connector.checkQuery(query, new Task1()));
-        mav.setViewName("task1_answer");
+        mav.addObject("responseJSP", connector.checkQuery(query, someTask));
+        mav.setViewName("check_and_answer");
         return mav;
     }
 }
