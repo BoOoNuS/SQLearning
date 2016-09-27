@@ -1,0 +1,43 @@
+.top-menu li {
+    display: inline-block;
+    padding: 3px 10px;
+    margin-left: 15%;
+}
+
+.top-menu a {
+    color: #8f8f8f;
+    padding: 13px;
+    text-decoration: none;
+}
+
+.aside-menu a {
+    color: #8f8f8f;
+    text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    list-style-position: inside;
+    font: 14px 'Oswald', sans-serif;
+    padding: 10px;
+}
+
+.top-menu a:hover {
+    color: #fff;
+    background: #29c5e6;
+    padding: 13px;
+}
+
+.aside-menu a:hover {
+    color: #fff;
+    background: #29c5e6;
+    padding: 13px;
+}

@@ -23,9 +23,6 @@
         </c:otherwise>
     </c:choose>
 
-    <spring:form method="post" action="/task1">
-        <input class="submit_button" type="submit" value="Back to task 1"/></br>
-    </spring:form>
     <spring:form method="get" action="/">
         <input class="submit_button" type="submit" value="Back to main page"/></br></br>
     </spring:form>

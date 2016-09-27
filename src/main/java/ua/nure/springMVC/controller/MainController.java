@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ua.nure.JDBCdriver.postgreSQL.PostgreConnector;
 import ua.nure.questions.ITask;
 import ua.nure.questions.Task1;
+import ua.nure.questions.Task2;
 import ua.nure.springMVC.model.UserQuery;
 
 @Controller
@@ -29,6 +30,15 @@ public class MainController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
         mav.setViewName("task1");
+        return mav;
+    }
+
+    @RequestMapping(value = "/task2")
+    public ModelAndView task2(){
+        someTask = new Task2();
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("queryJSP", new UserQuery());
+        mav.setViewName("task2");
         return mav;
     }
 
