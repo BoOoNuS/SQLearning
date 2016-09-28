@@ -24,30 +24,44 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/task1")
+    @RequestMapping(value = "/about_us", method = RequestMethod.GET)
+    public ModelAndView about(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("about/about_us");
+        return mav;
+    }
+
+    @RequestMapping(value = "/learning", method = RequestMethod.GET)
+    public ModelAndView lessons(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("lessons/learning");
+        return mav;
+    }
+
+    @RequestMapping(value = "/task1", method = RequestMethod.GET)
     public ModelAndView task1(){
         someTask = new Task1();
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
-        mav.setViewName("task1");
+        mav.setViewName("tasks/task1");
         return mav;
     }
 
-    @RequestMapping(value = "/task2")
+    @RequestMapping(value = "/task2", method = RequestMethod.GET)
     public ModelAndView task2(){
         someTask = new Task2();
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
-        mav.setViewName("task2");
+        mav.setViewName("tasks/task2");
         return mav;
     }
 
-    @RequestMapping(value = "/check_and_answer")
+    @RequestMapping(value = "/check_and_answer", method = RequestMethod.POST)
     public ModelAndView checkAndAnswer(@ModelAttribute("queryJSP") UserQuery query){
         PostgreConnector connector = PostgreConnector.connect("localhost", 5432, "business_firm", "postgres", "619916");
         ModelAndView mav = new ModelAndView();
         mav.addObject("responseJSP", connector.checkQuery(query, someTask));
-        mav.setViewName("check_and_answer");
+        mav.setViewName("tasks/check_and_answer");
         return mav;
     }
 }

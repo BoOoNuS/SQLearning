@@ -3,7 +3,7 @@
 <html>
 <head>
     <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
-    <title>SQLearning</title>
+    <title>Lessons</title>
 </head>
 <body>
     <nav>
@@ -14,15 +14,6 @@
         </ul>
     </nav>
     <br/><br/>
-    <aside>
-        <nav>
-            <ul class="aside-menu">
-                <li><a href="/task1">TASK 1</a></li><br/>
-                <li><a href="/task2">TASK 2</a></li><br/>
-            </ul>
-        </nav>
-    </aside>
+    Сюда нужно напихонькать обучающих статей...
 </body>
 </html>
-
-

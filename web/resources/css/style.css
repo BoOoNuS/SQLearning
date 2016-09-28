@@ -1,18 +1,42 @@
-.top-menu li {
-    display: inline-block;
-    padding: 3px 10px;
-    margin-left: 15%;
+.top-menu, .top-menu ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
-.top-menu a {
-    color: #8f8f8f;
-    padding: 13px;
-    text-decoration: none;
+.top-menu {
+    height: 30px;
+    background-color: #666;
+    padding-left: 25px;
+    min-width: 470px;
 }
+
+.top-menu li {
+    float: left;
+    position: relative;
+    height: 100%;
+}
+
+.top-menu li a {
+    display: block;
+    padding: 6px;
+    width: 100px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.top-menu li:hover { background-color: #29c5e6; }
 
 .aside-menu a {
     color: #8f8f8f;
     text-decoration: none;
+}
+
+.aside-menu a:hover {
+    color: #fff;
+    background: #29c5e6;
+    padding: 13px;
 }
 
 nav a {
@@ -24,20 +48,24 @@ nav ul {
     padding: 0;
 }
 
-nav li {
-    list-style-position: inside;
-    font: 14px 'Oswald', sans-serif;
-    padding: 10px;
+#query {
+    width: 295px;
+    height: 135px;
+    resize: none;
 }
 
-.top-menu a:hover {
+#btn-6d {
+    background: #008000;
+    padding: 3px 7px;
     color: #fff;
-    background: #29c5e6;
-    padding: 13px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #333;
 }
 
-.aside-menu a:hover {
+#btn-6d:hover {
+    background: transparent;
     color: #fff;
     background: #29c5e6;
-    padding: 13px;
 }
