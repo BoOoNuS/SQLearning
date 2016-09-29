@@ -1,19 +1,17 @@
 package ua.nure.JDBCdriver.postgreSQL;
 
+import org.apache.log4j.Logger;
 import ua.nure.questions.ITask;
 import ua.nure.springMVC.model.UserQuery;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Стас on 20.09.2016.
- */
 public class PostgreConnector {
 
+    private static Logger logger = Logger.getLogger(PostgreConnector.class);
     private static Map<String, Connection> postgreConnections = new HashMap<>();
     private String dbName;
 
@@ -32,9 +30,9 @@ public class PostgreConnector {
                                 hostName, port,
                                 dbName), userName, password);
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        logger.error(e.getMessage());
                     } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
+                        logger.error(e.getMessage());
                     }
                     postgreConnections.put(dbName, connection);
                     return new PostgreConnector(dbName);

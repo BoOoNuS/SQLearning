@@ -1,18 +1,17 @@
 package ua.nure.questions;
 
+import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by Стас on 21.09.2016.
- */
 public class Task1 implements ITask {
 
     /**
      * Вывести все типы продуктов где maker - "С"
      */
 
+    private static Logger logger = Logger.getLogger(Task1.class);
     private String trueAnswers = "Laptop";
 
     @Override
@@ -25,7 +24,7 @@ public class Task1 implements ITask {
                 userAnswer += result.getString("type");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return userAnswer.length() == trueAnswers.length() && trueAnswers.equals(userAnswer);
     }

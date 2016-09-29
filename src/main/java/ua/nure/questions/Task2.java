@@ -1,18 +1,17 @@
 package ua.nure.questions;
 
+import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * Created by Стас on 27.09.2016.
- */
 public class Task2 implements ITask{
 
     /**
      * Найдите все записи таблицы Printer для цветных принтеров
      */
 
+    private static Logger logger = Logger.getLogger(Task2.class);
     private String trueAnswers = "21433yJet270 000,00 ?31434yJet290 000,00 ?";
 
     @Override
@@ -29,7 +28,7 @@ public class Task2 implements ITask{
                 userAnswer += result.getString("price");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return userAnswer.length() == trueAnswers.length() && trueAnswers.equals(userAnswer);
     }

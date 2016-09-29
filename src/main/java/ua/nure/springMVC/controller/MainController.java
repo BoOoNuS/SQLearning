@@ -1,5 +1,6 @@
 package ua.nure.springMVC.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,13 @@ import ua.nure.springMVC.model.UserQuery;
 @Controller
 public class MainController {
 
+    Logger logger = Logger.getLogger(MainController.class);
     private volatile ITask someTask;
 
     /* First method when we start the server */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView main(){
+        logger.info("Index has started");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("index");
         return mav;
@@ -26,6 +29,7 @@ public class MainController {
 
     @RequestMapping(value = "/about_us", method = RequestMethod.GET)
     public ModelAndView about(){
+        logger.info("About has started");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("about/about_us");
         return mav;
@@ -33,6 +37,7 @@ public class MainController {
 
     @RequestMapping(value = "/learning", method = RequestMethod.GET)
     public ModelAndView lessons(){
+        logger.info("Learning has started");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("lessons/learning");
         return mav;
@@ -40,6 +45,7 @@ public class MainController {
 
     @RequestMapping(value = "/task1", method = RequestMethod.GET)
     public ModelAndView task1(){
+        logger.info("Task1 has started");
         someTask = new Task1();
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
@@ -49,6 +55,7 @@ public class MainController {
 
     @RequestMapping(value = "/task2", method = RequestMethod.GET)
     public ModelAndView task2(){
+        logger.info("Task2 has started");
         someTask = new Task2();
         ModelAndView mav = new ModelAndView();
         mav.addObject("queryJSP", new UserQuery());
@@ -58,6 +65,7 @@ public class MainController {
 
     @RequestMapping(value = "/check_and_answer", method = RequestMethod.POST)
     public ModelAndView checkAndAnswer(@ModelAttribute("queryJSP") UserQuery query){
+        logger.info("CheckAndAnswer has started");
         PostgreConnector connector = PostgreConnector.connect("localhost", 5432, "business_firm", "postgres", "619916");
         ModelAndView mav = new ModelAndView();
         mav.addObject("responseJSP", connector.checkQuery(query, someTask));
