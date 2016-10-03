@@ -1,4 +1,4 @@
-package ua.nure.springMVC.model;
+package ua.nure.springMVC.models;
 
 import org.springframework.stereotype.Component;
 

@@ -24,7 +24,7 @@
     The task:<br/>
     Find all the Printer table entry for color printers.<br/><br/>
 
-    <spring:form method="post" modelAttribute="queryJSP" action="check_and_answer">
+    <spring:form method="get" modelAttribute="queryJSP" action="check_and_answer">
         You SQL query:<br/><spring:textarea path="query" id="query"/><br/><br/>
         <spring:button id="btn-6d">Check query</spring:button>
     </spring:form>

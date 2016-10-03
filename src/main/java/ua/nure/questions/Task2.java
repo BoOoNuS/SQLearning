@@ -1,36 +1,27 @@
 package ua.nure.questions;
 
-import org.apache.log4j.Logger;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Task2 implements ITask{
+public class Task2 extends AbstractTask {
 
     /**
      * Найдите все записи таблицы Printer для цветных принтеров
      */
 
-    private static Logger logger = Logger.getLogger(Task2.class);
-    private String trueAnswers = "21433yJet270 000,00 ?31434yJet290 000,00 ?";
+    private String trueAnswers = "31434yJet29000021433yJet270000";
 
     @Override
-    public boolean check(String query, Connection connection) {
-        ResultSet result;
-        String userAnswer = "";
-        try {
-            result = connection.createStatement().executeQuery(query);
-            while (result.next()){
-                userAnswer += result.getString("code");
-                userAnswer += result.getString("model");
-                userAnswer += result.getString("color");
-                userAnswer += result.getString("type");
-                userAnswer += result.getString("price");
-            }
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
+    public boolean check(String query, Connection connection) throws SQLException {
+        super.result = connection.createStatement().executeQuery(query);
+        while (result.next()) {
+            super.userAnswer += super.result.getString("code");
+            super.userAnswer += super.result.getString("model");
+            super.userAnswer += super.result.getString("color");
+            super.userAnswer += super.result.getString("type");
+            super.userAnswer += super.result.getString("price");
         }
-        return userAnswer.length() == trueAnswers.length() && trueAnswers.equals(userAnswer);
+        return super.userAnswer.length() == trueAnswers.length() && trueAnswers.equals(super.userAnswer);
     }
 
 }

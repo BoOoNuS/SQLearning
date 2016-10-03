@@ -1,4 +1,4 @@
-package ua.nure.springMVC.controller;
+package ua.nure.springMVC.controllers;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ua.nure.JDBCdriver.postgreSQL.PostgreConnector;
-import ua.nure.questions.ITask;
+import ua.nure.JDBCdriver.postgreSQL.PostgresConnector;
+import ua.nure.questions.AbstractTask;
 import ua.nure.questions.Task1;
 import ua.nure.questions.Task2;
-import ua.nure.springMVC.model.UserQuery;
+import ua.nure.springMVC.models.UserQuery;
 
 @Controller
 public class MainController {
 
-    Logger logger = Logger.getLogger(MainController.class);
-    private volatile ITask someTask;
+    private static Logger logger = Logger.getLogger(MainController.class);
+    private volatile AbstractTask someTask;
 
-    /* First method when we start the server */
+    /** First method when we start the server */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView main(){
         logger.info("Index has started");
@@ -63,10 +63,10 @@ public class MainController {
         return mav;
     }
 
-    @RequestMapping(value = "/check_and_answer", method = RequestMethod.POST)
+    @RequestMapping(value = "/check_and_answer", method = RequestMethod.GET)
     public ModelAndView checkAndAnswer(@ModelAttribute("queryJSP") UserQuery query){
         logger.info("CheckAndAnswer has started");
-        PostgreConnector connector = PostgreConnector.connect("localhost", 5432, "business_firm", "postgres", "619916");
+        PostgresConnector connector = PostgresConnector.connect("localhost", 5432, "business_firm", "postgres", "619916");
         ModelAndView mav = new ModelAndView();
         mav.addObject("responseJSP", connector.checkQuery(query, someTask));
         mav.setViewName("tasks/check_and_answer");

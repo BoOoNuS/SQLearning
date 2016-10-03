@@ -1,31 +1,32 @@
 package ua.nure.JDBCdriver.postgreSQL;
 
 import org.apache.log4j.Logger;
-import ua.nure.questions.ITask;
-import ua.nure.springMVC.model.UserQuery;
+import ua.nure.questions.AbstractTask;
+import ua.nure.springMVC.models.UserQuery;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PostgreConnector {
+public class PostgresConnector {
 
-    private static Logger logger = Logger.getLogger(PostgreConnector.class);
+    public static final String ORG_POSTGRESQL_DRIVER = "org.postgresql.Driver";
+    private static Logger logger = Logger.getLogger(PostgresConnector.class);
     private static Map<String, Connection> postgreConnections = new HashMap<>();
     private String dbName;
 
-    public PostgreConnector(String dbName) {
+    private PostgresConnector(String dbName) {
         this.dbName = dbName;
     }
 
-    public static PostgreConnector connect(String hostName, int port, String dbName, String userName, String password) {
+    public static PostgresConnector connect(String hostName, int port, String dbName, String userName, String password) {
         if(postgreConnections.get(dbName) == null) {
-            synchronized (PostgreConnector.class) {
+            synchronized (PostgresConnector.class) {
                 if(postgreConnections.get(dbName) == null) {
                     Connection connection = null;
                     try {
-                        Class.forName("org.postgresql.Driver");
+                        Class.forName(ORG_POSTGRESQL_DRIVER);
                         connection = DriverManager.getConnection(String.format("jdbc:postgresql://%s:%s/%s",
                                 hostName, port,
                                 dbName), userName, password);
@@ -35,14 +36,20 @@ public class PostgreConnector {
                         logger.error(e.getMessage());
                     }
                     postgreConnections.put(dbName, connection);
-                    return new PostgreConnector(dbName);
+                    return new PostgresConnector(dbName);
                 }
             }
         }
-        return new PostgreConnector(dbName);
+        return new PostgresConnector(dbName);
     }
 
-    public boolean checkQuery(UserQuery query, ITask task){
-        return task.check(query.getQuery(), postgreConnections.get(dbName));
+    public boolean checkQuery(UserQuery query, AbstractTask task){
+        boolean answer = false;
+        try {
+            answer = task.check(query.getQuery(), postgreConnections.get(dbName));
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+        return answer;
     }
 }
