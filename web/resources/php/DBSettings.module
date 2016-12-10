@@ -1,0 +1,113 @@
+<?php
+
+class DBSettings
+{
+
+    private $db = null;
+
+    function __construct()
+    {
+        $this->db = pg_pconnect('host=localhost port=5432 dbname=business_firm user=postgres password=619916');
+    }
+
+    function createTables()
+    {
+        $this->db->pg_execute("CREATE TABLE laptop
+			(
+				code INTEGER PRIMARY KEY NOT NULL,
+				model VARCHAR(50) NOT NULL,
+				speed SMALLINT NOT NULL,
+				ram SMALLINT NOT NULL,
+				hd REAL NOT NULL,
+				price NUMERIC,
+				screen INTEGER NOT NULL,
+				CONSTRAINT laptop_product_model_foreign FOREIGN KEY (model) REFERENCES product (model)
+			);");
+
+        $this->db->pg_execute("CREATE TABLE pc
+			(
+				model VARCHAR(50) NOT NULL,
+				code INTEGER PRIMARY KEY NOT NULL,
+				speed SMALLINT NOT NULL,
+				ram SMALLINT NOT NULL,
+				hd REAL NOT NULL,
+				cd VARCHAR(10) NOT NULL,
+				price NUMERIC,
+				CONSTRAINT pc_product_model_foreign FOREIGN KEY (model) REFERENCES product (model)
+			);");
+
+        $this->db->pg_execute("CREATE TABLE printer
+			(
+				code INTEGER PRIMARY KEY NOT NULL,
+				model VARCHAR(50) NOT NULL,
+				color CHAR NOT NULL,
+				type VARCHAR(10) NOT NULL,
+				price NUMERIC,
+				CONSTRAINT printer_product_model_foreign FOREIGN KEY (model) REFERENCES product (model)
+			);");
+
+        $this->db->pg_execute("CREATE TABLE product
+			(
+				maker VARCHAR(10) NOT NULL,
+				model VARCHAR(50) PRIMARY KEY NOT NULL,
+				type VARCHAR(50) NOT NULL
+			);");
+    }
+
+    function fill()
+    {
+        $this->db->pg_insert("INSERT INTO laptop VALUES(1,1298,350,32,4,700000,11)");
+        $this->db->pg_insert("INSERT INTO laptop VALUES(2,1321,50,64,8,970000,12)");
+        $this->db->pg_insert("INSERT INTO laptop VALUES(3,1750,750,128,12,1200000,14)");
+        $this->db->pg_insert("INSERT INTO laptop VALUES(4,1298,600,64,10,1050000,15)");
+        $this->db->pg_insert("INSERT INTO laptop VALUES(6,1298,450,64,10,950000,12)");
+        $this->db->pg_insert("INSERT INTO laptop VALUES(5,1752,750,128,10,1150000,14)");
+
+        $this->db->pg_insert("INSERT INTO pc VALUES(1232,1,500,64,5,12x,600000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1121,2,750,128,14,40x,850000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1233,3,500,64,5,12x,600000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1121,4,600,128,14,40x,850000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1121,5,600,128,8,40x,850000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1233,6,750,128,20,50x,950000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1232,7,500,32,10,12x,400000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1232,8,450,64,8,24x,350000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1232,9,450,32,10,24x,350000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1260,10,500,32,10,12x,350000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1233,11,900,128,40,40x,980000)");
+        $this->db->pg_insert("INSERT INTO pc VALUES(1233,12,800,128,20,50x,970000)");
+
+        $this->db->pg_insert("INSERT INTO printer VALUES(6,1288,n,Laser,400000)");
+        $this->db->pg_insert("INSERT INTO printer VALUES(5,1408,n,Matrix,270000)");
+        $this->db->pg_insert("INSERT INTO printer VALUES(4,1401,n,Matrix,150000)");
+        $this->db->pg_insert("INSERT INTO printer VALUES(3,1434,y,Jet,290000)");
+        $this->db->pg_insert("INSERT INTO printer VALUES(2,1433,y,Jet,270000)");
+        $this->db->pg_insert("INSERT INTO printer VALUES(1,1276,n,Laser,400000)");
+
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1232,PC )");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1233,PC)");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1276,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1298,Laptop)");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1401,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1408,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(A,1752,Laptop)");
+        $this->db->pg_insert("INSERT INTO product VALUES(B,1121,PC)");
+        $this->db->pg_insert("INSERT INTO product VALUES(B,1750,Laptop)");
+        $this->db->pg_insert("INSERT INTO product VALUES(C,1321,Laptop)");
+        $this->db->pg_insert("INSERT INTO product VALUES(D,1288,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(D,1433,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(E,1260,PC)");
+        $this->db->pg_insert("INSERT INTO product VALUES(E,1434,Printer)");
+        $this->db->pg_insert("INSERT INTO product VALUES(E,2112,PC)");
+        $this->db->pg_insert("INSERT INTO product VALUES(E,2113,PC)");
+    }
+
+    function select($sqlQuery)
+    {
+        return $this->db->pg_execute($sqlQuery);
+    }
+
+    function close()
+    {
+        $this->db->pg_close;
+    }
+}
